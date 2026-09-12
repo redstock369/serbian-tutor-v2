@@ -1,0 +1,36 @@
+version: '3.8'
+
+services:
+  postgres:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_USER: tutor
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+      POSTGRES_DB: serbian_tutor
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    restart: unless-stopped
+    networks:
+      - net
+
+  redis:
+    image: redis:7-alpine
+    restart: unless-stopped
+    networks:
+      - net
+
+  bot:
+    build: .
+    env_file: .env.prod
+    depends_on:
+      - postgres
+      - redis
+    restart: unless-stopped
+    networks:
+      - net
+
+volumes:
+  postgres_data:
+
+networks:
+  net:

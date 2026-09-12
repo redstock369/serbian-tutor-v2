@@ -1,0 +1,13 @@
+__pycache__/
+*.pyc
+.env
+.env.prod
+.env.deploy.local
+.vscode/
+.idea/
+venv/
+postgres_data/
+.gcloud/
+credentials.json
+logs/
+*.log
